@@ -42,3 +42,20 @@ export interface NetopiaResponse {
   };
   [key: string]: any;
 }
+
+export interface NetopiaIPNBody {
+  [key: string]: any; // TODO: Define strict IPN shape based on documentation
+}
+
+export interface HttpResponseSet {
+  status?: number | string;
+}
+
+export interface PaymentActionContext {
+  body: unknown;
+  set: HttpResponseSet;
+}
+
+export interface PaymentIpnContext {
+  body: NetopiaIPNBody;
+}

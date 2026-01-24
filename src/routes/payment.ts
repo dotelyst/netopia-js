@@ -1,5 +1,9 @@
 import { Elysia } from 'elysia';
-import { paymentController } from '@/controllers/payment.controller';
+import { PaymentController } from '@/controllers/payment.controller';
+import { PaymentService } from '@/services/payment.service';
+
+const paymentService = new PaymentService();
+const paymentController = new PaymentController(paymentService);
 
 export const paymentRoutes = (app: Elysia) =>
   app.group('/payment', (app) =>
@@ -8,7 +12,7 @@ export const paymentRoutes = (app: Elysia) =>
         paymentController.handlePaymentAction({ body: body as any, set }),
       )
       .post('/callback', ({ body }) =>
-        paymentController.handlePaymentIpn({ body }),
+        paymentController.handlePaymentIpn({ body: body as any }),
       )
       .get('/health', () => ({
         status: 'ok',
